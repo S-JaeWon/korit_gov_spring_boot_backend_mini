@@ -18,6 +18,8 @@ public class User {
     private String email;
     @JsonIgnore
     private String password;
+    private String username;
+    private String profileImg;
     private LocalDateTime createDt;
     private LocalDateTime updateDt;
 
