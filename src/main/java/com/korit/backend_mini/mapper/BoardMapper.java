@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface BoardMapper {
 
     Optional<BoardRespDto> getBoardByBoardId(Integer boardId);
+    List<BoardRespDto> getBoardListByBoardId(Integer boardId);
     List<BoardRespDto> getBoardByKeyword(String keyword);
     List<BoardRespDto> getBoardList();
     int addBoard(Board board);

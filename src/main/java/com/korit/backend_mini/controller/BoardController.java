@@ -52,4 +52,9 @@ public class BoardController {
             @AuthenticationPrincipal PrincipalUser principalUser) {
         return ResponseEntity.ok(boardService.deleteBoard(deleteBoardDto , principalUser));
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getBoardListByUserId(@PathVariable Integer userId) {
+        return ResponseEntity.ok(boardService.getBoardListByUserId(userId));
+    }
 }

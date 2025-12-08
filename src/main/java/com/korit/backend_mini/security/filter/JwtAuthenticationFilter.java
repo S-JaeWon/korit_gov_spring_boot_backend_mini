@@ -56,8 +56,9 @@ public class JwtAuthenticationFilter implements Filter {
                 foundUser.ifPresentOrElse((user) -> {
                     PrincipalUser principalUser = PrincipalUser.builder()
                             .userId(user.getUserId())
-                            .username(user.getEmail())
+                            .email(user.getEmail())
                             .password(user.getPassword())
+                            .username(user.getUsername())
                             .profileImg(user.getProfileImg())
                             .userRoles(user.getUserRoles())
                             .build();

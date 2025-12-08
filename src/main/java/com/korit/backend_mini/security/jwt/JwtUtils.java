@@ -1,6 +1,5 @@
 package com.korit.backend_mini.security.jwt;
 
-import com.korit.backend_mini.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -30,6 +29,15 @@ public class JwtUtils {
                 .compact();
     }
 
+    public String generateVerifyToken(String userId) {
+        return Jwts.builder()
+                .subject("VerifyToken")
+                .id(userId)
+                .expiration(new Date(new Date().getTime() + (1000L * 60L *3L)))
+                .signWith(KEY)
+                .compact();
+    }
+
     public Claims getClaims(String token) throws JwtException {
         return Jwts.parser()
                 .verifyWith(KEY)
@@ -43,13 +51,10 @@ public class JwtUtils {
             return false;
         }
 
-        if (!token.startsWith("Bearer ")) {
-            return false;
-        }
-        return true;
+        return token.startsWith("Bearer ");
     }
 
-    public String removeBearer(String bearerToken){
-        return bearerToken.replaceFirst("Bearer ", "");
+    public String removeBearer(String token) {
+        return token.replaceFirst("Bearer ", "");
     }
 }

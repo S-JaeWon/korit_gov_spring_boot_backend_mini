@@ -164,4 +164,21 @@ public class BoardService {
                 .message("게시물 삭제 완료")
                 .build();
     }
+
+    public ApiRespDto<?> getBoardListByUserId(Integer userId) {
+        Optional<User> foundUser = userRepository.getUserByUserId(userId);
+
+        if (foundUser.isEmpty()) {
+            return ApiRespDto.builder()
+                    .status("failed")
+                    .message("존재하지 않는 user 입니다.")
+                    .build();
+        }
+
+        return ApiRespDto.builder()
+                .status("success")
+                .message("게시물 조회 완료")
+                .data(boardRepository.getBoardListByBoardId(userId))
+                .build();
+    }
 }

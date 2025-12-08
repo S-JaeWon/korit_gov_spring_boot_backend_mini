@@ -27,15 +27,32 @@
             bt.title,
             bt.content,
             bt.user_id,
+            ut.username
             bt.create_dt,
             bt.update_dt,
-
-            ut.username
         from
             board_tb bt
-            join user_tb ut on (bt.user_id = ut.user_id);
+            join user_tb ut on (bt.user_id = ut.user_id)
         where
             bt.board_id = #{userId};
+    </select>
+
+    <select id="getBoardListByUserId" resultMap="BoardResultMap">
+        select
+            bt.board_id,
+            bt.title,
+            bt.content,
+            bt.user_id,
+            ut.username
+            bt.create_dt,
+            bt.update_dt,
+        from
+            board_tb bt
+            join user_tb ut on (bt.user_id = ut.user_id)
+        where
+            bt.board_id = #{userId}
+        order by
+            bt.create_dt desc;
     </select>
 
     <select id="getBoardByKeyword" resultMap="BoardResultMap">
@@ -44,16 +61,15 @@
             bt.title,
             bt.content,
             bt.user_id,
+            ut.username
             bt.create_dt,
             bt.update_dt,
-
-            ut.username
         from
             board_tb bt
-            join user_tb ut on (bt.user_id = ut.user_id);
+            join user_tb ut on (bt.user_id = ut.user_id)
         where
             bt.title like "%#{title}%" or
-            bt.content like "%#{content}%";
+            bt.content like "%#{content}%"
         order by
             bt.create_dt desc;
     </select>
@@ -64,13 +80,12 @@
             bt.title,
             bt.content,
             bt.user_id,
+            ut.username
             bt.create_dt,
             bt.update_dt,
-
-            ut.username
         from
             board_tb bt
-            join user_tb ut on (bt.user_id = ut.user_id);
+            join user_tb ut on (bt.user_id = ut.user_id)
         order by
             bt.create_dt desc;
     </select>
