@@ -1,7 +1,7 @@
-package com.korit.backend_mini.controller;
+package com.korit.backend_mini.controller.User;
 
-import com.korit.backend_mini.dto.Request.SigninReqDto;
-import com.korit.backend_mini.dto.Request.SignupReqDto;
+import com.korit.backend_mini.dto.Request.Auth.SigninReqDto;
+import com.korit.backend_mini.dto.Request.Auth.SignupReqDto;
 import com.korit.backend_mini.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

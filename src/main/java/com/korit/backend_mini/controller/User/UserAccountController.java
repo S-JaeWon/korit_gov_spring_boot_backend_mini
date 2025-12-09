@@ -1,9 +1,10 @@
-package com.korit.backend_mini.controller;
+package com.korit.backend_mini.controller.User;
 
-import com.korit.backend_mini.dto.Request.ChangePwdReqDto;
-import com.korit.backend_mini.dto.Request.ChangeUsernameReqDto;
+import com.korit.backend_mini.dto.Request.Account.ChangePwdReqDto;
+import com.korit.backend_mini.dto.Request.Account.ChangeUsernameReqDto;
 import com.korit.backend_mini.security.model.PrincipalUser;
-import com.korit.backend_mini.service.UserAccountService;
+import com.korit.backend_mini.service.AccountService;
+import com.korit.backend_mini.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,20 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserAccountController {
 
     @Autowired
-    private UserAccountService userAccountService;
+    private AccountService accountService;
 
     @PostMapping("/change/password")
     public ResponseEntity<?> changePassword(
             @RequestBody ChangePwdReqDto changePwdReqDto,
             @AuthenticationPrincipal PrincipalUser principalUser) {
-        return ResponseEntity.ok(userAccountService.changePassword(changePwdReqDto, principalUser));
+        return ResponseEntity.ok(accountService.changePassword(changePwdReqDto, principalUser));
     }
 
     @PostMapping("/change/username")
     public ResponseEntity<?> changePassword(
             @RequestBody ChangeUsernameReqDto changeUsernameReqDto,
             @AuthenticationPrincipal PrincipalUser principalUser) {
-        return ResponseEntity.ok(userAccountService.changeUsername(changeUsernameReqDto, principalUser));
+        return ResponseEntity.ok(accountService.changeUsername(changeUsernameReqDto, principalUser));
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<?> withdraw(@AuthenticationPrincipal PrincipalUser principalUser) {
+        return ResponseEntity.ok(accountService.withdraw(principalUser));
     }
 
 }

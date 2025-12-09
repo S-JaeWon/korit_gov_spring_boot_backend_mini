@@ -1,7 +1,7 @@
 package com.korit.backend_mini.service;
 
-import com.korit.backend_mini.dto.Request.ChangePwdReqDto;
-import com.korit.backend_mini.dto.Request.ChangeUsernameReqDto;
+import com.korit.backend_mini.dto.Request.Account.ChangePwdReqDto;
+import com.korit.backend_mini.dto.Request.Account.ChangeUsernameReqDto;
 import com.korit.backend_mini.dto.Response.ApiRespDto;
 import com.korit.backend_mini.entity.User;
 import com.korit.backend_mini.repository.UserRepository;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserAccountService {
+public class AccountService {
 
     @Autowired
     private UserRepository userRepository;
@@ -118,6 +118,38 @@ public class UserAccountService {
         return ApiRespDto.builder()
                 .status("success")
                 .message("username 변경 완료")
+                .build();
+    }
+
+    public ApiRespDto<?> withdraw(PrincipalUser principalUser) {
+        Optional<User> foundUser = userRepository.getUserByUserId(principalUser.getUserId());
+        if (foundUser.isEmpty()) {
+            return ApiRespDto.builder()
+                    .status("failed")
+                    .message("존재하지 않은 user 입니다.")
+                    .build();
+        }
+
+        User user = foundUser.get();
+
+        if (!user.isActive()) {
+            return ApiRespDto.builder()
+                    .status("failed")
+                    .message("이미 탈퇴처리된 계정입니다.")
+                    .build();
+        }
+
+        int result = userRepository.withdraw(user.getUserId());
+        if (result != 1) {
+            return ApiRespDto.builder()
+                    .status("failed")
+                    .message("탈퇴 처리 실패, 다시 시도해주세요.")
+                    .build();
+        }
+
+        return ApiRespDto.builder()
+                .status("success")
+                .message("탈퇴신청 완료")
                 .build();
     }
 }

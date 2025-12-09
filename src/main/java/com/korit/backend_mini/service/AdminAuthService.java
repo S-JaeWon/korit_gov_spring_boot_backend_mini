@@ -13,10 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserAuthService {
+public class AdminAuthService {
 
     @Autowired
     private UserRepository userRepository;
@@ -58,7 +59,7 @@ public class UserAuthService {
 
         UserRole userRole = UserRole.builder()
                 .userId(user.get().getUserId())
-                .roleId(3)
+                .roleId(1)
                 .build();
 
         int result = userRoleRepository.addUserRole(userRole);
@@ -83,7 +84,6 @@ public class UserAuthService {
                     .build();
         }
 
-
         if (!bCryptPasswordEncoder.matches(signinReqDto.getPassword(), foundUser.get().getPassword())) {
             return ApiRespDto.builder()
                     .status("failed")
@@ -91,10 +91,11 @@ public class UserAuthService {
                     .build();
         }
 
-        if (!foundUser.get().isActive()) {
+        List<UserRole> userRoles = foundUser.get().getUserRoles();
+        if (userRoles.stream().noneMatch(userRole -> userRole.getUserRoleId() == 1)) {
             return ApiRespDto.builder()
                     .status("failed")
-                    .message("탈퇴 처리된 계정입니다.")
+                    .message("접근 권한이 없습니다.")
                     .build();
         }
 

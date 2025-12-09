@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -26,6 +27,10 @@ public class UserRepository {
         return userMapper.getUserByUsername(username);
     }
 
+    public List<User> getUserList(){
+        return userMapper.getUserList();
+    }
+
     public Optional<User> addUser(User user) {
         try {
             int result = userMapper.addUser(user);
@@ -41,7 +46,16 @@ public class UserRepository {
     public int changePassword(User user) {
         return userMapper.changePassword(user);
     }
+
     public int changeUsername(User user) {
         return userMapper.changeUsername(user);
+    }
+
+    public int withdraw(Integer userId) {
+        return userMapper.withdraw(userId);
+    }
+
+    public void deleteUser(){
+        userMapper.deleteUser();
     }
 }

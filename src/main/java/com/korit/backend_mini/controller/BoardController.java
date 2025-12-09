@@ -1,8 +1,8 @@
 package com.korit.backend_mini.controller;
 
-import com.korit.backend_mini.dto.Request.AddBoardReqDto;
-import com.korit.backend_mini.dto.Request.DeleteBoardDto;
-import com.korit.backend_mini.dto.Request.ModifyBoardReqDto;
+import com.korit.backend_mini.dto.Request.Board.AddBoardReqDto;
+import com.korit.backend_mini.dto.Request.Board.DeleteBoardDto;
+import com.korit.backend_mini.dto.Request.Board.ModifyBoardReqDto;
 import com.korit.backend_mini.security.model.PrincipalUser;
 import com.korit.backend_mini.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
