@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class WithdrawScheduler {
 
-    @Autowired
-    private UserRepository userRepository;
-    // 0/10 * * * * ?
-    @Scheduled(cron = "0/10 * * * * ?")
-    public void deleteExpiredUser() {
-        System.out.println("스케쥴러 작동");
-        userRepository.deleteUser();
-    }
+//    @Autowired
+//    private UserRepository userRepository;
+//    // 0/10 * * * * ?
+//    @Scheduled(cron = "0/10 * * * * ?")
+//    public void deleteExpiredUser() {
+//        System.out.println("스케쥴러 작동");
+//        userRepository.deleteUser();
+//    }
 }

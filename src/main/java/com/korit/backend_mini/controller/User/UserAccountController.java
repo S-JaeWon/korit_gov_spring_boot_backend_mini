@@ -2,16 +2,14 @@ package com.korit.backend_mini.controller.User;
 
 import com.korit.backend_mini.dto.Request.Account.ChangePwdReqDto;
 import com.korit.backend_mini.dto.Request.Account.ChangeUsernameReqDto;
+import com.korit.backend_mini.dto.Response.ApiRespDto;
 import com.korit.backend_mini.security.model.PrincipalUser;
 import com.korit.backend_mini.service.AccountService;
 import com.korit.backend_mini.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user/account")
@@ -20,6 +18,10 @@ public class UserAccountController {
     @Autowired
     private AccountService accountService;
 
+    @GetMapping("/principal")
+    public ResponseEntity<?> getPrincipal(@AuthenticationPrincipal PrincipalUser principalUser) {
+        return ResponseEntity.ok(new ApiRespDto<>("success", "회원 조회 완료", principalUser));
+    }
     @PostMapping("/change/password")
     public ResponseEntity<?> changePassword(
             @RequestBody ChangePwdReqDto changePwdReqDto,

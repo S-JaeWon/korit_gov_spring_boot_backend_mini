@@ -1,5 +1,6 @@
 package com.korit.backend_mini.security.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.korit.backend_mini.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ public class PrincipalUser implements UserDetails {
 
     private Integer userId;
     private String email;
+    @JsonIgnore
     private String password;
     private String username;
     private String profileImg;
