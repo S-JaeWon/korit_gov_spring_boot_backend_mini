@@ -1,5 +1,6 @@
 package com.korit.backend_mini.controller.User;
 
+import com.korit.backend_mini.dto.Request.Account.ChangeProfileImgReqDto;
 import com.korit.backend_mini.dto.Request.Account.ChangePwdReqDto;
 import com.korit.backend_mini.dto.Request.Account.ChangeUsernameReqDto;
 import com.korit.backend_mini.dto.Response.ApiRespDto;
@@ -36,9 +37,17 @@ public class UserAccountController {
         return ResponseEntity.ok(accountService.changeUsername(changeUsernameReqDto, principalUser));
     }
 
+    @PostMapping("/change/profileImg")
+    public ResponseEntity<?> changeProfileImg(
+            @RequestBody ChangeProfileImgReqDto changeProfileImgReqDto,
+            @AuthenticationPrincipal PrincipalUser principalUser) {
+        return ResponseEntity.ok(accountService.changeProfileImg(changeProfileImgReqDto, principalUser));
+    }
+
     @PostMapping("/withdraw")
     public ResponseEntity<?> withdraw(@AuthenticationPrincipal PrincipalUser principalUser) {
         return ResponseEntity.ok(accountService.withdraw(principalUser));
     }
+
 
 }

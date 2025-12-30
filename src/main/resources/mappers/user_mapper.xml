@@ -135,6 +135,16 @@
             user_id = #{userId};
     </update>
 
+    <update id="changeProfileImg">
+        update
+            user_tb
+        set
+            profile_img = #{profileImg},
+            update_dt = now()
+        where
+            user_id = #{userId};
+    </update>
+
     <update id="withdraw">
         update
             user_tb

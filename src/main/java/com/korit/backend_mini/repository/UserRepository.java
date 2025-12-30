@@ -51,6 +51,11 @@ public class UserRepository {
         return userMapper.changeUsername(user);
     }
 
+    public int changeProfileImg(User user) {
+        return userMapper.changeProfileImg(user);
+    }
+
+
     public int withdraw(Integer userId) {
         return userMapper.withdraw(userId);
     }

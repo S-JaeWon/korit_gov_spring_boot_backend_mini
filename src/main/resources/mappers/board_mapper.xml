@@ -8,6 +8,7 @@
         <result property="title" column="title" />
         <result property="content" column="content" />
         <result property="userId" column="user_id" />
+        <result property="profileImg" column="profile_img" />
         <result property="username" column="username" />
         <result property="createDt" column="create_dt" />
         <result property="updateDt" column="update_dt" />
@@ -15,11 +16,19 @@
 
     <select id="getBoardByBoardId" resultMap="BoardResultMap">
         select
-            *
+            bt.board_id,
+            bt.title,
+            bt.content,
+            bt.user_id,
+            ut.username,
+            ut.profile_img,
+            bt.create_dt,
+            bt.update_dt
         from
-            board_tb
+            board_tb bt
+            join user_tb ut on (bt.user_id = ut.user_id)
         where
-            board_id = #{boardId};
+            bt.board_id = #{boardId};
     </select>
 
     <select id="getBoardByUserId" resultMap="BoardResultMap">
@@ -28,9 +37,10 @@
             bt.title,
             bt.content,
             bt.user_id,
-            ut.username
+            ut.username,
+            ut.profile_img,
             bt.create_dt,
-            bt.update_dt,
+            bt.update_dt
         from
             board_tb bt
             join user_tb ut on (bt.user_id = ut.user_id)
@@ -44,9 +54,10 @@
             bt.title,
             bt.content,
             bt.user_id,
-            ut.username
+            ut.username,
+            ut.profile_img,
             bt.create_dt,
-            bt.update_dt,
+            bt.update_dt
         from
             board_tb bt
             join user_tb ut on (bt.user_id = ut.user_id)
@@ -63,6 +74,7 @@
             bt.content,
             bt.user_id,
             ut.username,
+            ut.profile_img,
             bt.create_dt,
             bt.update_dt
         from
@@ -82,6 +94,7 @@
             bt.content,
             bt.user_id,
             ut.username,
+            ut.profile_img,
             bt.create_dt,
             bt.update_dt
         from

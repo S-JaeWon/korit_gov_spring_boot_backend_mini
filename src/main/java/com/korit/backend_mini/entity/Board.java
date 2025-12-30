@@ -17,6 +17,7 @@ public class Board {
     private String content;
     private Integer userId;
     private String username;
+    private String profileImg;
     private LocalDateTime createDt;
     private LocalDateTime updateDt;
 }

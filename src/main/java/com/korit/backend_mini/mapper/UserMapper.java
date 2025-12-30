@@ -16,6 +16,7 @@ public interface UserMapper {
     int changePassword(User user);
     int changeUsername(User user);
     List<User> getUserList();
+    int changeProfileImg(User user);
     int withdraw(Integer userId);
     void deleteUser();
 }

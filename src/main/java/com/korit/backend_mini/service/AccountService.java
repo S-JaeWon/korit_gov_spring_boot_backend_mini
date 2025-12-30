@@ -1,5 +1,6 @@
 package com.korit.backend_mini.service;
 
+import com.korit.backend_mini.dto.Request.Account.ChangeProfileImgReqDto;
 import com.korit.backend_mini.dto.Request.Account.ChangePwdReqDto;
 import com.korit.backend_mini.dto.Request.Account.ChangeUsernameReqDto;
 import com.korit.backend_mini.dto.Response.ApiRespDto;
@@ -118,6 +119,43 @@ public class AccountService {
         return ApiRespDto.builder()
                 .status("success")
                 .message("username 변경 완료")
+                .build();
+    }
+
+    public ApiRespDto<?> changeProfileImg(
+            ChangeProfileImgReqDto changeProfileImgReqDto,
+            PrincipalUser principalUser
+    ) {
+        if (!changeProfileImgReqDto.getUserId().equals(principalUser.getUserId())) {
+            return ApiRespDto.builder()
+                    .status("failed")
+                    .message("잘못된 접근 입니다.")
+                    .build();
+        }
+
+        Optional<User> foundUser = userRepository.getUserByUserId(changeProfileImgReqDto.getUserId());
+        if (foundUser.isEmpty()) {
+            return ApiRespDto.builder()
+                    .status("failed")
+                    .message("존재하지 않은 사용자 입니다.")
+                    .build();
+        }
+
+        User user = foundUser.get();
+        user.setProfileImg(changeProfileImgReqDto.getProfileImg());
+
+        int result = userRepository.changeProfileImg(user);
+
+        if (result != 1) {
+            return ApiRespDto.builder()
+                    .status("failed")
+                    .message("사용자 프로필 변경에 실패했습니다. 다시 시도해주세요.")
+                    .build();
+        }
+
+        return ApiRespDto.builder()
+                .status("success")
+                .message("사용자 프로필 변경 완료")
                 .build();
     }
 
