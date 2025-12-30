@@ -34,8 +34,8 @@ public class BoardController {
         return ResponseEntity.ok(boardService.getBoardByBoardId(boardId));
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> getBoardByKeyword(@RequestParam String keyword) {
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<?> getBoardByKeyword(@PathVariable String keyword) {
         return ResponseEntity.ok(boardService.getBoardByKeyword(keyword));
     }
 

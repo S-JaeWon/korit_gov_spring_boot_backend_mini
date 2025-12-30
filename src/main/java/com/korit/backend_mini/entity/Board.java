@@ -16,6 +16,7 @@ public class Board {
     private String title;
     private String content;
     private Integer userId;
+    private String username;
     private LocalDateTime createDt;
     private LocalDateTime updateDt;
 }
