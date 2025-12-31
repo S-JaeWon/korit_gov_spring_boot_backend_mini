@@ -39,7 +39,7 @@ public class BoardRepository {
         return boardMapper.deleteBoard(boardId);
     }
 
-    public List<BoardRespDto> getBoardListByBoardId(Integer boardId) {
-        return boardMapper.getBoardListByBoardId(boardId);
+    public List<BoardRespDto> getBoardListByUserId(Integer userId) {
+        return boardMapper.getBoardListByUserId(userId);
     }
 }

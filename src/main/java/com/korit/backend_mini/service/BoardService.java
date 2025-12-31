@@ -177,7 +177,7 @@ public class BoardService {
         return ApiRespDto.builder()
                 .status("success")
                 .message("게시물 조회 완료")
-                .data(boardRepository.getBoardListByBoardId(userId))
+                .data(boardRepository.getBoardListByUserId(userId))
                 .build();
     }
 }

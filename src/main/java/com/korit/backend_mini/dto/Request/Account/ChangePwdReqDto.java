@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class ChangePwdReqDto {
     private Integer userId;
-    private String oldPassword;
+    private String password;
     private String newPassword;
 }

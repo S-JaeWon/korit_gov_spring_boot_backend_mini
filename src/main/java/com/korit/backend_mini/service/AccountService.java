@@ -44,7 +44,7 @@ public class AccountService {
 
         User user = foundUser.get();
 
-        if (bCryptPasswordEncoder.matches(changePwdReqDto.getOldPassword(), user.getPassword())) {
+        if (bCryptPasswordEncoder.matches(changePwdReqDto.getPassword(), user.getPassword())) {
             return ApiRespDto.builder()
                     .status("failed")
                     .message("현재 비밀번호가 일치 하지 않습니다.")

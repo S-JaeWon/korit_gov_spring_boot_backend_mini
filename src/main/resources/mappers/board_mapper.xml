@@ -62,7 +62,7 @@
             board_tb bt
             join user_tb ut on (bt.user_id = ut.user_id)
         where
-            bt.board_id = #{userId}
+            bt.user_id = #{userId}
         order by
             bt.create_dt desc;
     </select>
