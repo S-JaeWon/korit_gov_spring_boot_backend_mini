@@ -1,9 +1,8 @@
 package com.korit.backend_mini.service;
 
-import com.korit.backend_mini.dto.Request.Board.AddBoardReqDto;
-import com.korit.backend_mini.dto.Request.Board.DeleteBoardDto;
-import com.korit.backend_mini.dto.Request.Board.ModifyBoardReqDto;
+import com.korit.backend_mini.dto.Request.Board.*;
 import com.korit.backend_mini.dto.Response.ApiRespDto;
+import com.korit.backend_mini.dto.Response.BoardInfiniteRespDto;
 import com.korit.backend_mini.dto.Response.BoardRespDto;
 import com.korit.backend_mini.entity.User;
 import com.korit.backend_mini.repository.BoardRepository;
@@ -12,6 +11,7 @@ import com.korit.backend_mini.security.model.PrincipalUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +65,33 @@ public class BoardService {
                 .status("success")
                 .message("게시물 전체 조회 완료")
                 .data(boardList)
+                .build();
+    }
+
+    public ApiRespDto<?> getBoardInfinite(Integer limit, LocalDateTime cursorCreateDt, Integer cursorBoardId) {
+        int limitPlusOne = limit + 1;
+
+        List<BoardRespDto> boardRespDtoList = boardRepository.getBoardInfinite(cursorCreateDt, cursorBoardId, limitPlusOne);
+
+        boolean hasNext = boardRespDtoList.size() > limit;
+
+        if (hasNext) {
+            boardRespDtoList = boardRespDtoList.subList(0, limit);
+        }
+
+        BoardNextCursor boardNextCursor = null;
+        if (!boardRespDtoList.isEmpty() && hasNext) {
+            BoardRespDto last = boardRespDtoList.get(boardRespDtoList.size() - 1);
+            boardNextCursor = new BoardNextCursor(last.getCreateDt(), last.getBoardId());
+
+        }
+
+        BoardInfiniteRespDto boardInfiniteRespDto = new BoardInfiniteRespDto(boardRespDtoList, hasNext, boardNextCursor);
+
+        return  ApiRespDto.builder()
+                .status("success")
+                .message("조회 완료")
+                .data(boardInfiniteRespDto)
                 .build();
     }
 
